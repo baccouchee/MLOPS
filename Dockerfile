@@ -8,6 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Ensure the data directory has the correct permissions
+RUN chmod -R 777 /app/data
 
 # Execute the cleaning script
 CMD ["python", "scripts/cleaning_data.py"]

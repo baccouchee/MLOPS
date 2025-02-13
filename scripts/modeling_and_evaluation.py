@@ -61,13 +61,11 @@ corr_matrix = train_clean[numeric_columns].corr()
 # Affichage de la matrice de corrélation
 print(corr_matrix)
 
-import pandas as pd
-from scipy.stats import chi2_contingency
-
 # Sélection des variables catégorielles
 cat_columns = train_clean.select_dtypes(include=['object']).columns
 
 # Test du khi-deux pour chaque paire de variables catégorielles
+chi2_p_values = {}
 for col1 in cat_columns:
     for col2 in cat_columns:
         if col1 != col2:
@@ -75,35 +73,14 @@ for col1 in cat_columns:
             if contingency_table.size > 0:  # Ensure the contingency table is not empty
                 chi2, p, dof, expected = chi2_contingency(contingency_table)
                 if p < 0.05:
-                    print(f"Les variables {col1} et {col2} sont significativement corrélées (p-value = {p})")
+                    chi2_p_values[(col1, col2)] = p
             else:
                 print(f"Contingency table for {col1} and {col2} is empty, skipping chi-square test.")
-
-import pandas as pd
-from scipy.stats import chi2_contingency
-
-# Sélection des variables catégorielles
-cat_columns = train_clean.select_dtypes(include=['object']).columns
-
-# Dictionnaire pour stocker les p-values des tests du khi-deux
-chi2_p_values = {}
-
-# Test du khi-deux pour chaque paire de variables catégorielles
-for col1 in cat_columns:
-    for col2 in cat_columns:
-        if col1 != col2:
-            contingency_table = pd.crosstab(train_clean[col1], train_clean[col2])
-            chi2, p, dof, expected = chi2_contingency(contingency_table)
-            if p < 0.05:
-                chi2_p_values[(col1, col2)] = p
 
 # Affichage des p-values
 print("P-values des tests du khi-deux pour les paires de variables catégorielles :")
 for pair, p_value in chi2_p_values.items():
     print(f"{pair}: p-value = {p_value}")
-
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
 
 # Sélection des variables numériques
 num_columns = train_clean.select_dtypes(include=['float64', 'int64']).columns

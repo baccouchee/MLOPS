@@ -212,9 +212,21 @@ print("\n🔍 Colonnes disponibles dans le dataset :")
 print(train_df_imputed.columns.tolist())
 # Delete existing files if they exist
 if os.path.exists('data/train_clean.csv'):
+    os.chmod('data/train_clean.csv', 0o777)
     os.remove('data/train_clean.csv')
 if os.path.exists('data/test_clean.csv'):
+    os.chmod('data/test_clean.csv', 0o777)
     os.remove('data/test_clean.csv')
+
+
+# Print the current working directory
+print("\n🔍 Current working directory:")
+os.system('pwd')
+
+# Print the contents of the data directory
+print("\n🔍 Contents of the 'data' directory:")
+os.system('ls -l data')
+
 # Save cleaned data
 print("\n🔍 Saving cleaned training data to 'data/train_clean.csv'")
 train_df.to_csv('data/train_clean.csv', index=False)

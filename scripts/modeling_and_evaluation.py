@@ -72,9 +72,12 @@ for col1 in cat_columns:
     for col2 in cat_columns:
         if col1 != col2:
             contingency_table = pd.crosstab(train_clean[col1], train_clean[col2])
-            chi2, p, dof, expected = chi2_contingency(contingency_table)
-            if p < 0.05:
-                print(f"Les variables {col1} et {col2} sont significativement corrélées (p-value = {p})")
+            if contingency_table.size > 0:  # Ensure the contingency table is not empty
+                chi2, p, dof, expected = chi2_contingency(contingency_table)
+                if p < 0.05:
+                    print(f"Les variables {col1} et {col2} sont significativement corrélées (p-value = {p})")
+            else:
+                print(f"Contingency table for {col1} and {col2} is empty, skipping chi-square test.")
 
 import pandas as pd
 from scipy.stats import chi2_contingency

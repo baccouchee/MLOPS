@@ -8,10 +8,17 @@ os.makedirs('data', exist_ok=True)
 print("\n🔍 Permissions of the 'data' directory:")
 os.system('ls -ld data')
 
-
 # Correct paths to the data files
 train_path = "data/train.csv"
 test_path = "data/test.csv"
+
+# Print the current working directory
+print("\n🔍 Current working directory:")
+os.system('pwd')
+
+# Print the contents of the data directory
+print("\n🔍 Contents of the 'data' directory:")
+os.system('ls -l data')
 
 train_df = pd.read_csv(train_path)
 test_df = pd.read_csv(test_path)
@@ -201,5 +208,7 @@ print("\n🔍 Colonnes disponibles dans le dataset :")
 print(train_df_imputed.columns.tolist())
 
 # Save cleaned data
+print("\n🔍 Saving cleaned training data to 'data/train_clean.csv'")
 train_df.to_csv('data/train_clean.csv', index=False)
+print("\n🔍 Saving cleaned test data to 'data/test_clean.csv'")
 test_df.to_csv('data/test_clean.csv', index=False)

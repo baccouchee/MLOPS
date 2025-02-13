@@ -24,7 +24,7 @@ pipeline {
                     echo "Starting model training..."
                     // Build and run the Docker container to train the model
                     try {
-                        bat 'docker-compose run app python scripts/modeling_&_evaluation.py'
+                        bat 'docker-compose run app python scripts/modeling_and_evaluation.py'
                         echo "Model training completed."
                     } catch (Exception e) {
                         echo "Model training failed: ${e}"

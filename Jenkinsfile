@@ -8,7 +8,7 @@ pipeline {
                     echo "Starting data cleaning..."
                     // Build and run the Docker container to clean data
                     try {
-                        sh 'docker-compose run app python scripts/cleaning_data.py'
+                        bat 'docker-compose run app python scripts/cleaning_data.py'
                         echo "Data cleaning completed."
                     } catch (Exception e) {
                         echo "Data cleaning failed: ${e}"
@@ -24,7 +24,7 @@ pipeline {
                     echo "Starting model training..."
                     // Build and run the Docker container to train the model
                     try {
-                        sh 'docker-compose run app python scripts/modeling_&_evaluation.py'
+                        bat 'docker-compose run app python scripts/modeling_&_evaluation.py'
                         echo "Model training completed."
                     } catch (Exception e) {
                         echo "Model training failed: ${e}"

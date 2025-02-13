@@ -8,7 +8,7 @@ pipeline {
                     echo "Starting data cleaning..."
                     // Build and run the Docker container to clean data
                     try {
-                        bat 'docker-compose run app python scripts/cleaning_data.py'
+                        bat 'docker run data'
                         echo "Data cleaning completed."
                     } catch (Exception e) {
                         echo "Data cleaning failed: ${e}"

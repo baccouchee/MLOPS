@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 import pandas as pd
-
 # Ensure the data directory exists
 os.makedirs('data', exist_ok=True)
+
+# Print the permissions of the data directory
+print("\n🔍 Permissions of the 'data' directory:")
+os.system('ls -ld data')
+
 
 # Correct paths to the data files
 train_path = "data/train.csv"

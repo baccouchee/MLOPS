@@ -34,6 +34,22 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                script {
+                    echo "Starting deployment..."
+                    // Build and run the Docker Compose environment
+                    try {
+                        bat 'docker-compose up --build -d'
+                        echo "Deployment completed."
+                    } catch (Exception e) {
+                        echo "Deployment failed: ${e}"
+                        currentBuild.result = 'FAILURE'
+                        error "Stopping pipeline due to failure in deployment."
+                    }
+                }
+            }
+        }
     }
 
     post {

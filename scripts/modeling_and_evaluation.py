@@ -85,6 +85,9 @@ for pair, p_value in chi2_p_values.items():
 # Sélection des variables numériques
 num_columns = train_clean.select_dtypes(include=['float64', 'int64']).columns
 
+# Handle NaN values by imputing with the mean of each column
+train_clean[num_columns] = train_clean[num_columns].apply(lambda x: x.fillna(x.mean()), axis=0)
+
 # Standardisation des données
 scaler = StandardScaler()
 train_scaled = scaler.fit_transform(train_clean[num_columns])

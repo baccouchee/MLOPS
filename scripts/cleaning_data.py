@@ -4,6 +4,8 @@ import pandas as pd
 # Ensure the data directory exists
 os.makedirs('data', exist_ok=True)
 
+
+    
 # Print the permissions of the data directory
 print("\n🔍 Permissions of the 'data' directory:")
 os.system('ls -ld data')
@@ -33,6 +35,8 @@ print(test_df.head())
 # 2️⃣ Obtenir les dimensions des datasets
 print("\n📏 Dimensions des datasets :")
 print(f"Train: {train_df.shape}, Test: {test_df.shape}")
+
+
 
 # 3️⃣ Identifier les types de variables
 print("\n🔍 Types de variables dans le dataset d'entraînement (TR) :")
@@ -206,7 +210,11 @@ print(X_test_imputed.isnull().sum())
 
 print("\n🔍 Colonnes disponibles dans le dataset :")
 print(train_df_imputed.columns.tolist())
-
+# Delete existing files if they exist
+if os.path.exists('data/train_clean.csv'):
+    os.remove('data/train_clean.csv')
+if os.path.exists('data/test_clean.csv'):
+    os.remove('data/test_clean.csv')
 # Save cleaned data
 print("\n🔍 Saving cleaned training data to 'data/train_clean.csv'")
 train_df.to_csv('data/train_clean.csv', index=False)

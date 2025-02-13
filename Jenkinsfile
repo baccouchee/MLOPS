@@ -27,5 +27,10 @@ pipeline {
             archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
             archiveArtifacts artifacts: 'metrics/*.json', allowEmptyArchive: true
         }
+        failure {
+            script {
+                echo "Pipeline failed. Check the logs for details."
+            }
+        }
     }
 }

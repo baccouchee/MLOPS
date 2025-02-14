@@ -6,3 +6,5 @@ matplotlib
 seaborn
 jupyter
 imblearn
+psycopg2-binary
+joblib

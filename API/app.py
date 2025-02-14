@@ -3,11 +3,12 @@ import pickle
 import pandas as pd
 import psycopg2
 import json
+import os
 
 app = Flask(__name__)
 
 # Load the trained model
-model_path = 'model/random_forest_model.pkl'
+model_path = os.path.join(os.path.dirname(__file__), 'model/random_forest_model.pkl')
 with open(model_path, 'rb') as file:
     model = pickle.load(file)
 

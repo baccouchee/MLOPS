@@ -3,23 +3,31 @@ version: "3.8"
 services:
   api:
     build:
-      context: ./api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./API/Dockerfile
     ports:
       - "5000:5000"
     volumes:
-      - ./api:/app
+      - ./API:/app
+      - ./model:/app/model
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:latest
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: predictions
+      POSTGRES_DB: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./db/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db-data:

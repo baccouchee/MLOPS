@@ -13,6 +13,7 @@ from imblearn.over_sampling import RandomOverSampler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+import pickle
 
 # Charger les datasets
 train_path = "data/train_clean.csv"  # Remplace par ton chemin réel
@@ -189,3 +190,22 @@ plt.title("Matrice de confusion - Avant suréchantillonnage")
 plt.xlabel("Prédictions")
 plt.ylabel("Véritables")
 plt.show()
+
+# Save the trained model
+model_path = 'model/random_forest_model.pkl'
+with open(model_path, 'wb') as file:
+    pickle.dump(rf_model, file)
+
+# Evaluate the model
+y_pred = rf_model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+
+# Print classification report
+print("Classification Report:")
+print(classification_report(y_test, y_pred))
+
+# Print confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(cm)
